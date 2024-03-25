@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Jost Variable", sans-serif;
+}
+.title {
+  font-family: "Manrope Variable", sans-serif;
+  font-weight: 800;
+  color: blueviolet;
+  font-size: 22px;
+}
