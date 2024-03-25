@@ -7,6 +7,10 @@ import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserResolver } from './user/user.resolver';
+import { UserService } from './user/user.service';
+import { AuthService } from './auth/auth.service';
+import { PrismaService } from './prisma.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -21,6 +25,13 @@ import { UserResolver } from './user/user.resolver';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UserResolver],
+  providers: [
+    AppService,
+    UserResolver,
+    UserService,
+    AuthService,
+    PrismaService,
+    JwtService,
+  ],
 })
 export class AppModule {}

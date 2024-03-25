@@ -1,10 +1,11 @@
-import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { AuthService } from 'src/auth/auth.service';
 import { UserService } from './user.service';
 import { LoginResponse, RegisterResponse } from 'src/auth/types';
 import { LoginDto, RegisterDto } from 'src/auth/auth.dto';
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, UseFilters } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { GraphQLErrorFilter } from 'src/filters.ts/custom-exception.filter';
 
 @Resolver()
 export class UserResolver {
@@ -13,6 +14,7 @@ export class UserResolver {
     private readonly userService: UserService,
   ) {}
 
+  @UseFilters(GraphQLErrorFilter)
   @Mutation(() => RegisterResponse)
   async register(
     @Args('registerInput') registerDto: RegisterDto,
@@ -58,5 +60,10 @@ export class UserResolver {
     } catch (error) {
       throw new BadRequestException(error.message);
     }
+  }
+
+  @Query(() => String)
+  async hello() {
+    return 'Hello World!';
   }
 }
